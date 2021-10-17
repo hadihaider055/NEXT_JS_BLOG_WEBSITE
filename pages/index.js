@@ -3,6 +3,17 @@ import CardComponent from "../components/Card";
 import { createClient } from "contentful";
 
 export default function Home({ tiedupBlog }) {
+  const getLatestPost = () => {
+    return tiedupBlog.map((blog) => {
+      const resDate = Date.parse(blog.fields.date);
+      const today = Date.now();
+      const diff = Math.floor((today - resDate) / 86400000);
+      if (diff <= 7) {
+        return <CardComponent key={blog.sys.id} blog={blog} />;
+      }
+    });
+  };
+
   return (
     <>
       <Head>
@@ -12,27 +23,20 @@ export default function Home({ tiedupBlog }) {
       </Head>
       <div className="container mx-auto">
         <div className="w-full lg:grid grid-cols-3">
-          <h1 className="mt-4 text-2xl ml-4">Featured Blogs</h1>
-          <div className="flex flex-wrap items-center w-full col-start-1 col-end-3">
+          <h1 className="mt-4 text-2xl ml-4 mx-5">Featured Blogs</h1>
+          <div className="flex flex-wrap items-center w-full col-start-1 col-end-3 h-3/5">
             {tiedupBlog.map((blog) => {
               return blog.fields.isFeatured ? (
                 <CardComponent key={blog.sys.id} blog={blog} />
               ) : null;
             })}
           </div>
-          <div className="mt-14 col-span-1 col-start-3">
-            <div>
-              <h1 className="text-2xl mb-4">Latest Blogs</h1>
-              <div className="flex flex-wrap items-center w-full">
-                {tiedupBlog.map((blog) => {
-                  return Date.now() - Date.parse(blog.sys.createdAt) <
-                    122000000 ? (
-                    <CardComponent key={blog.sys.id} blog={blog} />
-                  ) : null;
-                })}
-              </div>
+          <div className="mt-14 col-span-1 col-start-3 mx-5">
+            <h1 className="text-2xl mb-4 mx-5">Latest Blogs</h1>
+            <div className="flex flex-wrap items-center w-full">
+              {getLatestPost()}
             </div>
-            <div>
+            <div className="mx-5">
               <h1 className="text-2xl mt-8 mb-4">About us</h1>
               <p className="font-sans tracking-wider">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde

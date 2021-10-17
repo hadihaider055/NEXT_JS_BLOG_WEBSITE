@@ -12,7 +12,7 @@ export default function CardComponent({ blog }) {
             src={"https:" + thumbnail.fields.file.url}
             alt={thumbnail.fields.title}
             width={288}
-            height={250}
+            height={250} 
             placeholder="blur"
             blurDataURL={"https:" + thumbnail.fields.file.url}
           />

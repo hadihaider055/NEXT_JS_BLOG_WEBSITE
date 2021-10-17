@@ -6,6 +6,7 @@ module.exports = {
       fontFamily: {
         sans: ["Georama", "sans-serif"],
         serif: ["Roboto", "sans-serif"],
+        lato: ["Lato", "sans-serif"],
       },
     },
   },

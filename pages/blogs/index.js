@@ -1,19 +1,25 @@
-import React from "react";
 import { createClient } from "contentful";
 import CardComponent from "../../components/Card";
+import Head from "next/head";
 
 const Blogs = ({ tiedupBlog }) => {
   return (
-    <div className="container w-full mx-auto">
-      <h1 className="text-center text-3xl mt-10 font-sans font-semibold tracking-wider">
-        Blogs
-      </h1>
-      <div className="flex flex-wrap items-center w-full">
-        {tiedupBlog.map((blog) => {
-          return <CardComponent key={blog.sys.id} blog={blog} />;
-        })}
+    <>
+      <Head>
+        <title>Tiedup Blogs</title>
+        <meta name="description" content="Tiedup Blogs" />
+      </Head>
+      <div className="container w-full mx-auto mt-28">
+        <h1 className="text-center text-3xl mt-10 font-sans font-semibold tracking-wider">
+          Blogs
+        </h1>
+        <div className="flex flex-wrap items-center w-full">
+          {tiedupBlog.map((blog) => {
+            return <CardComponent key={blog.sys.id} blog={blog} />;
+          })}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

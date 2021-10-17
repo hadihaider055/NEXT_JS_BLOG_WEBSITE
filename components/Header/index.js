@@ -13,7 +13,7 @@ export default function Header() {
   const [openNavbar, setOpenNavbar] = useState(false);
 
   return (
-    <Navbar color="indigo" navbar>
+    <Navbar color="indigo" navbar className="fixed w-full z-10 top-0">
       <NavbarContainer>
         <NavbarWrapper>
           <NavbarBrand>
