@@ -3,6 +3,8 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { INLINES } from "@contentful/rich-text-types";
 import Image from "next/image";
 import Head from "next/head";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 function Blog({ tiedupBlog }) {
   const options = {
@@ -21,6 +23,14 @@ function Blog({ tiedupBlog }) {
       },
     },
   };
+
+  const [isLogin, setIsLogin] = useState(false);
+  const state = useSelector((state) => state);
+
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
+
   return (
     <>
       <Head>
@@ -43,9 +53,18 @@ function Blog({ tiedupBlog }) {
               width={1000}
               height={450}
             />
-            <div className="text-justify mt-10 mx-5 font-sans tracking-wider text-md leading-relaxed">
+            <div
+              className={`text-justify mt-10 mx-5 font-sans tracking-wider text-md leading-relaxed ${
+                isLogin ? "" : "hideBlog"
+              }`}
+            >
               {documentToReactComponents(tiedupBlog.fields.blog, options)}
             </div>
+            {!isLogin && (
+              <button className="mt-10 border-2 p-2 border-indigo-500 hover:bg-indigo-500 hover:text-white rounded-lg outline-none focus:outline-none">
+                Read More
+              </button>
+            )}
             <div className="flex items-center justify-between mx-5 mt-20">
               <p className="text-gray-600 font-light text-sm uppercase font-lato">
                 {tiedupBlog.fields.author}

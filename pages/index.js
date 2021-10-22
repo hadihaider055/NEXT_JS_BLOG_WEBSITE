@@ -22,8 +22,8 @@ export default function Home({ tiedupBlog }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="container mx-auto">
-        <div className="w-full lg:grid grid-cols-3">
-          <h1 className="mt-4 text-2xl ml-4 mx-5">Featured Blogs</h1>
+        <div className="w-full lg:grid grid-cols-3 mt-20 ">
+          <h1 className="text-2xl ml-4 mx-5">Featured Blogs</h1>
           <div className="flex flex-wrap items-center w-full col-start-1 col-end-3 h-3/5">
             {tiedupBlog.map((blog) => {
               return blog.fields.isFeatured ? (
