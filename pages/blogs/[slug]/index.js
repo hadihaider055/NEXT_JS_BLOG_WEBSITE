@@ -3,8 +3,9 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { INLINES } from "@contentful/rich-text-types";
 import Image from "next/image";
 import Head from "next/head";
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useState, useEffect, useMemo } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 
 function Blog({ tiedupBlog }) {
   const options = {
@@ -24,12 +25,23 @@ function Blog({ tiedupBlog }) {
     },
   };
 
-  const [isLogin, setIsLogin] = useState(false);
+  const router = useRouter();
+  const [showButton, setShowButton] = useState(true);
   const state = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(state);
+    if (Object.keys(state.authReducer.auth).length > 0) {
+      setShowButton(false);
+    } else {
+      setShowButton(true);
+    }
   }, [state]);
+
+  const handleReadmore = () => {
+    dispatch({ type: "AUTH_USER_PATH", payload: router.query.slug });
+    router.push("/login");
+  };
 
   return (
     <>
@@ -55,13 +67,16 @@ function Blog({ tiedupBlog }) {
             />
             <div
               className={`text-justify mt-10 mx-5 font-sans tracking-wider text-md leading-relaxed ${
-                isLogin ? "" : "hideBlog"
+                showButton ? "hideBlog" : ""
               }`}
             >
               {documentToReactComponents(tiedupBlog.fields.blog, options)}
             </div>
-            {!isLogin && (
-              <button className="mt-10 border-2 p-2 border-indigo-500 hover:bg-indigo-500 hover:text-white rounded-lg outline-none focus:outline-none">
+            {showButton && (
+              <button
+                className="mt-10 border-2 p-2 border-indigo-500 hover:bg-indigo-500 hover:text-white rounded-lg outline-none focus:outline-none"
+                onClick={handleReadmore}
+              >
                 Read More
               </button>
             )}

@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../state/actions/authaction";
 import { useRouter } from "next/router";
 
 const Login = ({ cookie }) => {
   const dispatch = useDispatch();
+  const state = useSelector((state) => state.authReducer);
   const router = useRouter();
   const [user, setUser] = useState({
     email: "",
@@ -26,10 +27,14 @@ const Login = ({ cookie }) => {
 
   useEffect(() => {
     if (cookie.token) {
-      router.push("/");
+      if (state.path) {
+        router.push(`/blogs/${state.path}`);
+      } else {
+        router.push("/");
+      }
       dispatch({ type: "AUTH_USER", payload: cookie.token });
     }
-  }, [cookie]);
+  }, [cookie, state.path]);
 
   return (
     <div className="mt-28">

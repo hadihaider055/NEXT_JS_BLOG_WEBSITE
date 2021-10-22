@@ -1,6 +1,7 @@
 const initialState = {
   auth: {},
   message: {},
+  path: {},
 };
 
 const authReducer = (state = initialState, action) => {
@@ -15,7 +16,11 @@ const authReducer = (state = initialState, action) => {
         ...state,
         message: action.payload,
       };
-
+    case "AUTH_USER_PATH":
+      return {
+        ...state,
+        path: action.payload,
+      };
     default:
       return state;
   }

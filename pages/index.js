@@ -63,11 +63,11 @@ export async function getStaticProps() {
     accessToken: process.env.CONTENTFUL_ACCESS_KEY,
   });
 
-  const res = await client.getEntries({ content_type: "tiedupBlog" });
+  const response = await client.getEntries({ content_type: "tiedupBlog" });
 
   return {
     props: {
-      tiedupBlog: res.items,
+      tiedupBlog: response.items,
     },
     revalidate: 1,
   };
