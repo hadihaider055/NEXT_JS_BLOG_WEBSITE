@@ -43,12 +43,6 @@ const register = async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    const cookies = new Cookies(req, res);
-    cookies.set("token", token, {
-      httpOnly: true,
-      maxAge: 1000 * 60 * 60,
-    });
-
     res.status(201).json({
       message: "User created successfully",
       token: token,

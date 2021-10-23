@@ -8,9 +8,20 @@ import NavbarCollapse from "@material-tailwind/react/NavbarCollapse";
 import Nav from "@material-tailwind/react/Nav";
 import NavItem from "@material-tailwind/react/NavItem";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 export default function Header() {
   const [openNavbar, setOpenNavbar] = useState(false);
+  const user = useSelector((state) => state.authReducer.auth);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    dispatch({ type: "AUTH_USER", payload: {} });
+    router.push("/");
+  };
 
   return (
     <Navbar color="indigo" navbar className="fixed w-full z-10 top-0">
@@ -46,9 +57,15 @@ export default function Header() {
               </Link>
             </NavItem>
             <NavItem>
-              <Link href="/login">
-                <a>Login</a>
-              </Link>
+              {user ? (
+                <a className="cursor-pointer" onClick={handleLogout}>
+                  Logout
+                </a>
+              ) : (
+                <Link href="/login">
+                  <a>Login</a>
+                </Link>
+              )}
             </NavItem>
           </Nav>
         </NavbarCollapse>

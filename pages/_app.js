@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import { Provider } from "react-redux";
 import { useStore } from "../state/store";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, cookie }) {
   if (Component.getLayout) {
     return Component.getLayout(<Component {...pageProps} />);
   }

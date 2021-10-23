@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { registerUser } from "../../state/actions/authaction";
 import { useRouter } from "next/router";
 
-const Register = ({ cookie }) => {
+const Register = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [user, setUser] = useState({
@@ -14,6 +14,7 @@ const Register = ({ cookie }) => {
     password: "",
   });
 
+  const [token, setToken] = useState("");
   const handleChange = (e) => {
     setUser({
       ...user,
@@ -27,11 +28,16 @@ const Register = ({ cookie }) => {
   };
 
   useEffect(() => {
-    if (cookie.token) {
-      router.push("/");
-      dispatch({ type: "AUTH_USER", payload: cookie.token });
+    setToken(localStorage.getItem("token") || "");
+    if (token) {
+      if (state.path) {
+        router.push(`/blogs/${state.path}`);
+      } else {
+        router.push("/");
+      }
+      dispatch({ type: "AUTH_USER", payload: token });
     }
-  }, [cookie]);
+  }, [token, localStorage.getItem("token")]);
 
   return (
     <div className="mt-28">
@@ -85,14 +91,3 @@ export default Register;
 //     </>
 //   );
 // };
-export const getServerSideProps = async (ctx) => {
-  const { req, res } = ctx;
-
-  const { cookies } = req;
-
-  return {
-    props: {
-      cookie: cookies,
-    },
-  };
-};

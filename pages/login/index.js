@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../state/actions/authaction";
 import { useRouter } from "next/router";
 
-const Login = ({ cookie }) => {
+const Login = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.authReducer);
   const router = useRouter();
@@ -13,6 +13,10 @@ const Login = ({ cookie }) => {
     email: "",
     password: "",
   });
+
+  const [token, setToken] = useState("");
+
+  const [message, setMessage] = useState("");
   const handleChange = (e) => {
     setUser({
       ...user,
@@ -24,17 +28,17 @@ const Login = ({ cookie }) => {
     e.preventDefault();
     dispatch(loginUser(user));
   };
-
   useEffect(() => {
-    if (cookie.token) {
+    setToken(localStorage.getItem("token") || "");
+    if (token) {
       if (state.path) {
         router.push(`/blogs/${state.path}`);
       } else {
         router.push("/");
       }
-      dispatch({ type: "AUTH_USER", payload: cookie.token });
+      dispatch({ type: "AUTH_USER", payload: token });
     }
-  }, [cookie, state.path]);
+  }, [token, localStorage.getItem("token")]);
 
   return (
     <div className="mt-28">
@@ -43,6 +47,7 @@ const Login = ({ cookie }) => {
         className="mt-8 max-w-sm m-5/6 mx-auto text-center"
         onSubmit={handleSubmit}
       >
+        {message && <h1>{message}</h1>}
         <div className="mb-4">
           <input
             type="email"
@@ -80,15 +85,3 @@ export default Login;
 //     </>
 //   );
 // };
-
-export const getServerSideProps = async (ctx) => {
-  const { req, res } = ctx;
-
-  const { cookies } = req;
-
-  return {
-    props: {
-      cookie: cookies,
-    },
-  };
-};

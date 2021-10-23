@@ -39,11 +39,6 @@ const login = async (req, res) => {
         expiresIn: "1h",
       }
     );
-    const cookie = new Cookies(req, res);
-    cookie.set("token", token, {
-      httpOnly: true,
-      maxAge: 3600000,
-    });
     return res.status(200).json({
       message: "Login Successful",
       token,

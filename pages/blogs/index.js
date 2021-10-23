@@ -6,7 +6,7 @@ const Blogs = ({ tiedupBlog }) => {
   return (
     <>
       <Head>
-        <title>Tiedup Blogs</title>
+        <title>Tiedup Blogs | Blogs</title>
         <meta name="description" content="Tiedup Blogs" />
       </Head>
       <div className="container w-full mx-auto mt-28">

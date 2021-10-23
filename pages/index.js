@@ -1,8 +1,12 @@
 import Head from "next/head";
 import CardComponent from "../components/Card";
 import { createClient } from "contentful";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 export default function Home({ tiedupBlog }) {
+  const [token, setToken] = useState("");
+  const dispatch = useDispatch();
   const getLatestPost = () => {
     return tiedupBlog.map((blog) => {
       const resDate = Date.parse(blog.fields.date);
@@ -13,6 +17,11 @@ export default function Home({ tiedupBlog }) {
       }
     });
   };
+
+  useEffect(() => {
+    setToken(localStorage.getItem("token") || "");
+    dispatch({ type: "AUTH_USER", payload: token });
+  });
 
   return (
     <>

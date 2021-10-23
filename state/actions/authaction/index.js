@@ -7,6 +7,7 @@ export const registerUser = (user) => async (dispatch) => {
       type: "AUTH_USER",
       payload: res.data.token,
     });
+    localStorage.setItem("token", res.data.token);
     dispatch({
       type: "AUTH_USER_MESSAGE",
       payload: res.data.message,
@@ -26,6 +27,7 @@ export const loginUser = (user) => async (dispatch) => {
       type: "AUTH_USER",
       payload: res.data.token,
     });
+    localStorage.setItem("token", res.data.token);
     dispatch({
       type: "AUTH_USER_MESSAGE",
       payload: res.data.message,
