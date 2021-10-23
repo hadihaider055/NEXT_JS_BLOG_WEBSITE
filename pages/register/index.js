@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../state/actions/authaction";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const Register = () => {
   const dispatch = useDispatch();
+  const state = useSelector((state) => state.authReducer);
   const router = useRouter();
   const [user, setUser] = useState({
     username: "",
@@ -15,6 +15,8 @@ const Register = () => {
   });
 
   const [token, setToken] = useState("");
+  const [message, setMessage] = useState("");
+
   const handleChange = (e) => {
     setUser({
       ...user,
@@ -37,7 +39,8 @@ const Register = () => {
       }
       dispatch({ type: "AUTH_USER", payload: token });
     }
-  }, [token, localStorage.getItem("token")]);
+    setMessage(state.message);
+  }, [token]);
 
   return (
     <div className="mt-28">
@@ -46,6 +49,15 @@ const Register = () => {
         className="mt-8 max-w-sm m-5/6 mx-auto text-center"
         onSubmit={handleSubmit}
       >
+        {message && (
+          <h1
+            className={`${
+              message === "Login Successful" ? "bg-green-500" : "bg-red-500"
+            } text-white rounded-lg py-3 w-5/6 mx-auto`}
+          >
+            {message}
+          </h1>
+        )}
         <div className="mb-4">
           <input
             type="text"
@@ -74,6 +86,9 @@ const Register = () => {
           <button className=" bg-gray-800 text-white w-5/6 rounded-md h-12 px-3 font-lato m-2">
             Register
           </button>
+          <h1>
+            Already have an account? <Link href="/login">Login now</Link>
+          </h1>
         </div>
       </form>
     </div>
@@ -81,13 +96,3 @@ const Register = () => {
 };
 
 export default Register;
-
-// Login.getLayout = function PageLayout(page) {
-//   return (
-//     <>
-//       <Header />
-//       {page}
-//       <Footer position="absolute" bottom="bottom-0" />
-//     </>
-//   );
-// };

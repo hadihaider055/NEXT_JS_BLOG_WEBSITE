@@ -1,5 +1,3 @@
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
 import Head from "next/head";
 
 function About() {
@@ -42,13 +40,3 @@ function About() {
 }
 
 export default About;
-
-About.getLayout = function PageLayout(page) {
-  return (
-    <>
-      <Header />
-      {page}
-      <Footer position="absolute" bottom="bottom-0" />
-    </>
-  );
-};

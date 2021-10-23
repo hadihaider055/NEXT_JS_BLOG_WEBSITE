@@ -2,7 +2,6 @@ import connectDB from "../../../utils/Database config";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../../../models/registerModel";
-import Cookies from "cookies";
 
 connectDB();
 

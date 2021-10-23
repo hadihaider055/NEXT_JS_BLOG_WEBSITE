@@ -31,7 +31,7 @@ function Blog({ tiedupBlog }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (Object.keys(state.authReducer.auth).length > 0) {
+    if (state.authReducer.auth) {
       setShowButton(false);
     } else {
       setShowButton(true);
@@ -49,9 +49,9 @@ function Blog({ tiedupBlog }) {
         <title>{"Tiedup Blogs | " + tiedupBlog.fields.title}</title>
         <meta name="description" content={tiedupBlog.fields.title} />
       </Head>
-      <div className="container mx-auto w-full ">
+      <div className="container mx-auto w-full  mb-28">
         <div>
-          <h1 className="font-lato font-bold mt-20 text-2xl text-center">
+          <h1 className="font-lato font-bold mt-24 text-2xl text-center">
             {tiedupBlog.fields.title}
           </h1>
           <div className="mx-auto text-center mt-10">

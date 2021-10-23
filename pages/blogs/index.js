@@ -9,7 +9,7 @@ const Blogs = ({ tiedupBlog }) => {
         <title>Tiedup Blogs | Blogs</title>
         <meta name="description" content="Tiedup Blogs" />
       </Head>
-      <div className="container w-full mx-auto mt-28">
+      <div className="container w-full mx-auto mt-28 mb-28">
         <h1 className="text-center text-3xl mt-10 font-sans font-semibold tracking-wider">
           Blogs
         </h1>
