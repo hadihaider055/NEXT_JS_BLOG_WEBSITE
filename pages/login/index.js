@@ -28,6 +28,7 @@ const Login = () => {
     e.preventDefault();
     dispatch(loginUser(user));
   };
+
   useEffect(() => {
     setToken(localStorage.getItem("token") || "");
     if (token) {
@@ -38,9 +39,10 @@ const Login = () => {
       }
       dispatch({ type: "AUTH_USER", payload: token });
     }
-    setMessage(state.message);
-  }, [token]);
-
+    if (state.message) {
+      setMessage(state.message);
+    }
+  }, [token, state.message]);
   return (
     <>
       <Head>

@@ -39,8 +39,10 @@ const Register = () => {
       }
       dispatch({ type: "AUTH_USER", payload: token });
     }
-    setMessage(state.message);
-  }, [token]);
+    if (state.message) {
+      setMessage(state.message);
+    }
+  }, [token, state.message]);
 
   return (
     <div className="mt-28">
@@ -52,7 +54,9 @@ const Register = () => {
         {message && (
           <h1
             className={`${
-              message === "Login Successful" ? "bg-green-500" : "bg-red-500"
+              message === "User created successfully"
+                ? "bg-green-500"
+                : "bg-red-500"
             } text-white rounded-lg py-3 w-5/6 mx-auto`}
           >
             {message}

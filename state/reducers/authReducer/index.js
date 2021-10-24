@@ -1,7 +1,7 @@
 const initialState = {
-  auth: {},
-  message: {},
-  path: {},
+  auth: "",
+  message: "",
+  path: "",
 };
 
 const authReducer = (state = initialState, action) => {

@@ -19,7 +19,9 @@ export default function Header() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    dispatch({ type: "AUTH_USER", payload: {} });
+    dispatch({ type: "AUTH_USER", payload: "" });
+    dispatch({ type: "AUTH_USER_MESSAGE", payload: "" });
+    dispatch({ type: "AUTH_USER_PATH", payload: "" });
     router.push("/");
   };
 
